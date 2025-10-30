@@ -39,3 +39,5 @@
 # typescript
 /Frontend/*.tsbuildinfo
 /Frontend/next-env.d.ts
+
+/Backend/venv

@@ -2,10 +2,6 @@ import re
 
 # Core function to convert English to ASL gloss
 def convertTranscriptToASLGloss(transcript):
-    """
-    Converts English text to ASL gloss format.
-    ASL structure: TIME + TOPIC + COMMENT (or TIME + SUBJECT + VERB + OBJECT)
-    """
     # Convert to uppercase (ASL gloss convention)
     text = transcript.upper().strip()
     

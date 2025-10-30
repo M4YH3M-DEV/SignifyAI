@@ -1,6 +1,7 @@
 from alsGLoss import convertTranscriptToASLGloss
 from fastapi import FastAPI, UploadFile, File
 from faster_whisper import WhisperModel
+from fastapi.middleware.cors import CORSMiddleware
 import tempfile
 import os
 import subprocess
@@ -11,9 +12,18 @@ import io
 app = FastAPI()
 audioToTextModel = WhisperModel("base", device="cpu", compute_type="int8")
 
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # API endpoint for ASL with audio
-@app.post("/asl_with_audio")
+@app.post("/api/asl_with_audio")
 async def asl_with_audio(audioFile: UploadFile = File(...)):
     # Saving the audio file to a temporary location
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tempFile:
@@ -25,18 +35,20 @@ async def asl_with_audio(audioFile: UploadFile = File(...)):
         # Transcribe the audio to text
         segments, info = audioToTextModel.transcribe(tempFilePath)
         transcript = " ".join([segment.text for segment in segments])
-        
+
         # Convert to ASL grammar
         asl_gloss = convertTranscriptToASLGloss(transcript)
-        
-        return {"original_transcript": transcript, "asl_gloss": asl_gloss}
+
+        print(f"Normal Text: {transcript} | ASL Gloss: {asl_gloss}")
+
+        return {"alsgloss": asl_gloss}
     finally:
         # Deleting the temporary file
         os.unlink(tempFilePath)
 
 
 # API endpoint for ASL with video
-@app.post("/asl_with_video")
+@app.post("/api/asl_with_video")
 async def asl_with_video(videoFile: UploadFile = File(...)):
     # Get file extension
     file_extension = os.path.splitext(videoFile.filename)[1].lower()
@@ -52,21 +64,32 @@ async def asl_with_video(videoFile: UploadFile = File(...)):
 
     try:
         # Convert video to audio using ffmpeg
-        subprocess.run([
-            "ffmpeg", "-y", "-i", videoFilePath,
-            "-q:a", "0", "-map", "a", audioFilePath
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT, check=True)
-        
+        subprocess.run(
+            [
+                "ffmpeg",
+                "-y",
+                "-i",
+                videoFilePath,
+                "-q:a",
+                "0",
+                "-map",
+                "a",
+                audioFilePath,
+            ],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.STDOUT,
+            check=True,
+        )
+
         # Read the audio file content
-        with open(audioFilePath, 'rb') as audio_file:
+        with open(audioFilePath, "rb") as audio_file:
             audio_content = audio_file.read()
-        
+
         # Create an UploadFile object from the audio bytes
         audio_upload = UploadFile(
-            filename="converted_audio.mp3",
-            file=io.BytesIO(audio_content)
+            filename="converted_audio.mp3", file=io.BytesIO(audio_content)
         )
-        
+
         # Call the asl_with_audio function
         result = await asl_with_audio(audio_upload)
         return result

@@ -1,4 +1,5 @@
 from alsGLoss import convertTranscriptToASLGloss
+from aiCheck import checkASLGloss
 from fastapi import FastAPI, UploadFile, File
 from faster_whisper import WhisperModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,6 +26,8 @@ app.add_middleware(
 # API endpoint for ASL with audio
 @app.post("/api/asl_with_audio")
 async def asl_with_audio(audioFile: UploadFile = File(...)):
+    # Feedback
+    print("ASL with Audio started")
     # Saving the audio file to a temporary location
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tempFile:
         content = await audioFile.read()
@@ -39,7 +42,10 @@ async def asl_with_audio(audioFile: UploadFile = File(...)):
         # Convert to ASL grammar
         asl_gloss = convertTranscriptToASLGloss(transcript)
 
-        print(f"Normal Text: {transcript} | ASL Gloss: {asl_gloss}")
+        # Disabled due to low credit issue
+        # glossVerified = checkASLGloss(transcript, asl_gloss)
+
+        print(f"Normal Text: {transcript} | ASL Gloss (No AI): {asl_gloss}")
 
         return {"alsgloss": asl_gloss}
     finally:
@@ -50,6 +56,9 @@ async def asl_with_audio(audioFile: UploadFile = File(...)):
 # API endpoint for ASL with video
 @app.post("/api/asl_with_video")
 async def asl_with_video(videoFile: UploadFile = File(...)):
+    # Feedback
+    print("ASL with Video started")
+
     # Get file extension
     file_extension = os.path.splitext(videoFile.filename)[1].lower()
 

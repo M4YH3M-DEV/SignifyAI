@@ -41,3 +41,4 @@
 /Frontend/next-env.d.ts
 
 /Backend/venv
+/Backend/__pycache__

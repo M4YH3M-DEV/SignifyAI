@@ -1,0 +1,114 @@
+{
+  "A": {
+    "letter": "A",
+    "image_path": "/assets/signs/A.jpg"
+  },
+  "B": {
+    "letter": "B",
+    "image_path": "/assets/signs/B.jpg"
+  },
+  "C": {
+    "letter": "C",
+    "image_path": "/assets/signs/C.jpg"
+  },
+  "D": {
+    "letter": "D",
+    "image_path": "/assets/signs/D.jpg"
+  },
+  "E": {
+    "letter": "E",
+    "image_path": "/assets/signs/E.jpg"
+  },
+  "F": {
+    "letter": "F",
+    "image_path": "/assets/signs/F.jpg"
+  },
+  "G": {
+    "letter": "G",
+    "image_path": "/assets/signs/G.jpg"
+  },
+  "H": {
+    "letter": "H",
+    "image_path": "/assets/signs/H.jpg"
+  },
+  "I": {
+    "letter": "I",
+    "image_path": "/assets/signs/I.jpg"
+  },
+  "J": {
+    "letter": "J",
+    "image_path": "/assets/signs/J.jpg"
+  },
+  "K": {
+    "letter": "K",
+    "image_path": "/assets/signs/K.jpg"
+  },
+  "L": {
+    "letter": "L",
+    "image_path": "/assets/signs/L.jpg"
+  },
+  "M": {
+    "letter": "M",
+    "image_path": "/assets/signs/M.jpg"
+  },
+  "N": {
+    "letter": "N",
+    "image_path": "/assets/signs/N.jpg"
+  },
+  "O": {
+    "letter": "O",
+    "image_path": "/assets/signs/O.jpg"
+  },
+  "P": {
+    "letter": "P",
+    "image_path": "/assets/signs/P.jpg"
+  },
+  "Q": {
+    "letter": "Q",
+    "image_path": "/assets/signs/Q.jpg"
+  },
+  "R": {
+    "letter": "R",
+    "image_path": "/assets/signs/R.jpg"
+  },
+  "S": {
+    "letter": "S",
+    "image_path": "/assets/signs/S.jpg"
+  },
+  "T": {
+    "letter": "T",
+    "image_path": "/assets/signs/T.jpg"
+  },
+  "U": {
+    "letter": "U",
+    "image_path": "/assets/signs/U.jpg"
+  },
+  "V": {
+    "letter": "V",
+    "image_path": "/assets/signs/V.jpg"
+  },
+  "W": {
+    "letter": "W",
+    "image_path": "/assets/signs/W.jpg"
+  },
+  "X": {
+    "letter": "X",
+    "image_path": "/assets/signs/X.jpg"
+  },
+  "Y": {
+    "letter": "Y",
+    "image_path": "/assets/signs/Y.jpg"
+  },
+  "Z": {
+    "letter": "Z",
+    "image_path": "/assets/signs/Z.jpg"
+  },
+  "Nothing": {
+    "name": "Nothing",
+    "image_path": "/assets/signs/Nothing.jpg"
+  },
+  "Space": {
+    "name": "Space",
+    "image_path": "/assets/signs/Space.jpg"
+  }
+}

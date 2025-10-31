@@ -85,10 +85,11 @@ def checkTone(transcript):
 Transcript: {transcript}
 
 Respond with ONLY a single word from this list:
-Happy, Sad, Angry, Neutral, Confused, Excited, Calm, Frustrated, Sarcastic
+Happy, Sad, Angry, Neutral, Confused
 
 If multiple tones are present, choose the most dominant one."""
 
     returnResponse = getResponse(prompt)
+    # returnResponse = "Angry"
     print(f"CheckTone AI: {returnResponse}")
     return returnResponse

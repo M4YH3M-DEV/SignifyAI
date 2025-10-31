@@ -53,7 +53,7 @@ async def asl_with_audio(audioFile: UploadFile = File(...)):
 
         print(f"Normal Text: {transcript} | ASL Gloss (No AI): {asl_gloss}")
 
-        return {"alsgloss": asl_gloss}
+        return {"alsgloss": asl_gloss, "currentTone": currentTone}
     finally:
         # Deleting the temporary file
         os.unlink(tempFilePath)

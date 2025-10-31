@@ -9,6 +9,52 @@ interface Gesture {
   isSpace: boolean;
 }
 
+interface ToneConfig {
+  emoji: string;
+  color: string;
+  label: string;
+  bgGradient: string;
+  borderColor: string;
+}
+
+const TONE_CONFIG: Record<string, ToneConfig> = {
+  Happy: {
+    emoji: "😊",
+    color: "text-yellow-400",
+    label: "Happy",
+    bgGradient: "from-yellow-500/20 to-amber-500/20",
+    borderColor: "border-yellow-400/50",
+  },
+  Sad: {
+    emoji: "😢",
+    color: "text-blue-400",
+    label: "Sad",
+    bgGradient: "from-blue-500/20 to-cyan-500/20",
+    borderColor: "border-blue-400/50",
+  },
+  Angry: {
+    emoji: "😠",
+    color: "text-red-400",
+    label: "Angry",
+    bgGradient: "from-red-500/20 to-orange-500/20",
+    borderColor: "border-red-400/50",
+  },
+  Neutral: {
+    emoji: "😐",
+    color: "text-slate-400",
+    label: "Neutral",
+    bgGradient: "from-slate-500/20 to-gray-500/20",
+    borderColor: "border-slate-400/50",
+  },
+  Confused: {
+    emoji: "😕",
+    color: "text-purple-400",
+    label: "Confused",
+    bgGradient: "from-purple-500/20 to-pink-500/20",
+    borderColor: "border-purple-400/50",
+  },
+};
+
 export default function Home() {
   const [transcript, setTranscript] = useState("");
   const [gestures, setGestures] = useState<Gesture[]>([]);
@@ -16,6 +62,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentGestureIndex, setCurrentGestureIndex] = useState(0);
   const [completedSequence, setCompletedSequence] = useState<string>("");
+  const [currentTone, setCurrentTone] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -111,6 +158,12 @@ export default function Home() {
 
       const data = await response.json();
       const aslGloss = data.asl_gloss || data.alsgloss;
+      const tone = data.currentTone;
+
+      // Set tone from response
+      if (tone) {
+        setCurrentTone(tone);
+      }
 
       // Check if aslGloss is empty or only whitespace
       if (!aslGloss || aslGloss.trim() === "") {
@@ -181,12 +234,14 @@ export default function Home() {
           setTranscript("");
           setCurrentGestureIndex(0);
           setCompletedSequence("");
-        }, 5000); // 1 second delay before reset
+        }, 5000);
       }
     }, delayBetweenGestures);
 
     return () => clearTimeout(timer);
   }, [currentGestureIndex, gestures.length, delayBetweenGestures, gestures]);
+
+  const toneConfig = currentTone ? TONE_CONFIG[currentTone] : null;
 
   return (
     <div className="flex flex-col h-screen w-screen bg-linear-to-br from-slate-950 via-purple-950 to-slate-950 overflow-hidden select-none relative">
@@ -209,6 +264,31 @@ export default function Home() {
           className="absolute -bottom-40 -right-40 w-96 h-96 bg-linear-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl"
         />
       </div>
+
+      {/* Tone Display - Top Right Corner */}
+      {toneConfig && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.4 }}
+          className={`absolute top-6 right-6 z-20 bg-linear-to-br ${toneConfig.bgGradient} border ${toneConfig.borderColor} backdrop-blur-xl px-6 py-3 rounded-full flex items-center gap-3 shadow-lg`}
+        >
+          <motion.span
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 1, repeat: Infinity }}
+            className="text-2xl"
+          >
+            {toneConfig.emoji}
+          </motion.span>
+          <div className="flex flex-col gap-0">
+            <span className="text-xs text-slate-400 font-semibold">Detected Tone</span>
+            <span className={`text-sm font-bold ${toneConfig.color}`}>
+              {toneConfig.label}
+            </span>
+          </div>
+        </motion.div>
+      )}
 
       {/* Display Area */}
       <div className="flex-1 w-full flex justify-center items-center px-4 relative z-10">
@@ -423,6 +503,7 @@ export default function Home() {
               setTranscript("");
               setCurrentGestureIndex(0);
               setCompletedSequence("");
+              setCurrentTone(null);
             }}
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.94 }}

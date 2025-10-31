@@ -13,7 +13,7 @@ def convertTranscriptToASLGloss(transcript):
     text = re.sub(r"\b(A|AN|THE)\b", "", text)
 
     # Remove "be verbs" (am, is, are, was, were, be, been, being)
-    text = re.sub(r"\b(AM|IS|ARE|WAS|WERE|BE|BEEN|BEING)\b", "", text)
+    text = re.sub(r"\b(AM|IS|ARE|WAS|WERE|BE|BEEN|BEING|TO|FOR|IN|ON|AT|BY|WITH|FROM|INTO|UP|DOWN|OUT|OVER|UNDER|BEHIND|ABOVE|BELOW|AGAINST|OFF|AGAIN|WANT)\b", "", text)
 
     # Convert contractions and possessives
     text = text.replace("I'M", "I")

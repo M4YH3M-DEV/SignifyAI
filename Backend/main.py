@@ -1,5 +1,5 @@
 from alsGLoss import convertTranscriptToASLGloss
-from aiCheck import checkASLGloss
+from aiCheck import checkASLGloss, checkLanguage, checkTone
 from fastapi import FastAPI, UploadFile, File
 from faster_whisper import WhisperModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -39,11 +39,17 @@ async def asl_with_audio(audioFile: UploadFile = File(...)):
         segments, info = audioToTextModel.transcribe(tempFilePath)
         transcript = " ".join([segment.text for segment in segments])
 
+        # Disabled due to low credit issue #####
+        # transcript = checkLanguage(transcript)
+        currentTone = checkTone(transcript)
+        ########################################
+
         # Convert to ASL grammar
         asl_gloss = convertTranscriptToASLGloss(transcript)
 
-        # Disabled due to low credit issue
+        # Disabled due to low credit issue ###################
         # glossVerified = checkASLGloss(transcript, asl_gloss)
+        ######################################################
 
         print(f"Normal Text: {transcript} | ASL Gloss (No AI): {asl_gloss}")
 

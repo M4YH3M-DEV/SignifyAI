@@ -49,5 +49,11 @@ Makes education, employment, and information equally accessible to the deaf comm
 
 ---
 
+💡 [HB Singh Chaudhary (M4YH3M)](https://github.com/M4YH3M-DEV/)
+
+👨‍💻 [BIGBEASTISHANK (Pranjal)](https://bigbeastishank.com/)
+
+---
+
 *Bridging communication gaps through AI and accessibility.* 🤝
 

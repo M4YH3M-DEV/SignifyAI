@@ -1,5 +1,9 @@
 # SignifyAI
 
+> [!Note]
+> Built at MUJHackX 3.0, the biggest hackathon of MUJ, and we won 3rd place among 500+ teams nationwide! 🔥
+> ![winning](/Assets/winning.jpeg)
+
 A real-time application that converts spoken audio and video into American Sign Language gestures, enabling accessibility for deaf and hard-of-hearing individuals.
 
 ## Problem
@@ -23,13 +27,14 @@ The system translates speech to ASL through three stages:
 
 ## How It Works
 
-**User speaks** → **Whisper transcribes** → **NLP converts to ASL Gloss** → **Gestures map to images** → **Animated display**
+**User speaks** >> **Whisper transcribes** >> **NLP converts to ASL Gloss** >> **Gestures map to images** >> **Animated display**
 
 ## Technology Stack
 
-- **Backend**: FastAPI + Python (Whisper, FFmpeg)
+- **Backend**: FastAPI + Python (Faster Whisper, FFmpeg)
 - **Frontend**: Next.js + React (Framer Motion animations)
-- **Data**: JSON gesture mappings (A-Z alphabet)
+- **Data**: JSON gesture mappings, Kaggle ASL Alphabet
+- **AI**: Openrouter
 
 ## Benefits
 
@@ -44,13 +49,14 @@ Makes education, employment, and information equally accessible to the deaf comm
 
 ## Setup
 
-**Backend**: `pip install -r requirements.txt` → `uvicorn main:app --reload`
-**Frontend**: `yarn` → `yarn dev`
+- **Backend**: `pip install -r requirements.txt` >> `uvicorn main:app --reload`
+- **Frontend**: `yarn` → `yarn dev`
 
 ---
 
-💡 [HB Singh Chaudhary (M4YH3M)](https://github.com/M4YH3M-DEV/)
+## Credits
 
+💡 [HB Singh Chaudhary (M4YH3M)](https://github.com/M4YH3M-DEV/)
 👨‍💻 [BIGBEASTISHANK (Pranjal)](https://bigbeastishank.com/)
 
 ---

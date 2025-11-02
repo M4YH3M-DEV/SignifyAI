@@ -50,7 +50,7 @@ Makes education, employment, and information equally accessible to the deaf comm
 ## Setup
 
 - **Backend**: `pip install -r requirements.txt` >> `uvicorn main:app --reload`
-- **Frontend**: `yarn` → `yarn dev`
+- **Frontend**: `yarn` >> `yarn dev`
 
 ---
 
